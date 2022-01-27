@@ -1,0 +1,309 @@
+<div [@routerTransition]>
+  <p-toast></p-toast>
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6">
+          <h1>{{ "Quản lý API thiết bị"}}</h1>
+        </div>
+        <div class="col-6 text-right">
+          <a href="javascript:;" class="btn bg-red" [routerLink]="['../']">
+            <i class="fa fa-arrow-alt-circle-left"></i>
+            {{"Trở về"}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content px-2">
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-body">
+          <p-tabView>
+            <p-tabPanel header="Cấu hình">
+              <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                  <button pButton pRipple label="New" icon="pi pi-plus"
+                    (click)="openCreateDeviceAPI()"
+                    class="p-button-success p-mr-2"></button>&nbsp;
+                  <button pButton pRipple [label]="Delete" icon="pi pi-trash"
+                    class="p-button-danger"></button>
+                </ng-template>
+
+                <ng-template pTemplate="right">
+                  <p-fileUpload mode="basic" accept="image/*"
+                    [maxFileSize]="1000000" label="Import" chooseLabel="Import"
+                    class="p-mr-2 p-d-inline-block"></p-fileUpload>&nbsp;
+                  <button pButton pRipple label="Export" icon="pi pi-upload"
+                    class="p-button-help"></button>
+                </ng-template>
+              </p-toolbar>
+              <br>
+              <ng-container>
+                <p-table #dt [value]="deviceapis"
+                  [rows]="10"
+                  [paginator]="true"
+                  [globalFilterFields]="['name','homeServerCode','producer']"
+                  [rowHover]="true"
+                  dataKey="id" selectionMode="single"
+                  currentPageReportTemplate="Showing {first}
+                  to {last} of
+                  {totalRecords} entries"
+                  [showCurrentPageReport]="true">
+                  <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                      <div class="row">
+                        <div class="col-sm-8"> <h5 class="p-m-0">Danh sách API</h5></div>
+                        <div class="col-sm-4">
+                          <span class="p-input-icon-right">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text"
+                              (input)="dt.filterGlobal($event.target.value,
+                              'contains')"
+                              placeholder="Search..." />
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th pSortableColumn="userName">Home Server<p-sortIcon
+                          field="userName"></p-sortIcon></th>
+                      <th pSortableColumn="address">Thiết bị<p-sortIcon
+                          field="address"></p-sortIcon></th>
+                      <th pSortableColumn="address">Method<p-sortIcon
+                          field="address"></p-sortIcon></th>
+                      <th>Url</th>
+                      <th> ContentType </th>
+                      <th>Định dạng dữ liệu</th>
+                      <th style="width: 8rem;">Tháo tác</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-api>
+                    <tr>
+                      <td>{{api.homeServerName}}</td>
+                      <td>{{api.deviceName}}</td>
+                      <td>{{api.method}}</td>
+                      <td>{{api.url}}</td>
+                      <td>{{api.contentType}}</td>
+                      <td>{{api.values}}</td>
+                      <td>
+                        <button pButton pRipple icon="pi pi-pencil"
+                          (click)="updateDevice(api)"
+                          class="p-button-rounded
+                          p-button-success p-mr-2"></button>&nbsp;
+                        <button pButton pRipple icon="pi pi-trash"
+                          (click)="deleteDeviceAPI(api.id)"
+                          class="p-button-rounded
+                          p-button-warning"></button>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </ng-container>
+            </p-tabPanel>
+            <p-tabPanel header="API cho nhà thông minh">
+              <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                  <button pButton pRipple label="New" icon="pi pi-plus"
+                    (click)="openCreateDeviceAPI()"
+                    class="p-button-success p-mr-2"></button>&nbsp;
+                  <button pButton pRipple [label]="Delete" icon="pi pi-trash"
+                    class="p-button-danger"></button>
+                </ng-template>
+
+                <ng-template pTemplate="right">
+                  <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text"
+                      (keyup.enter)="search()" [(ngModel)]="searchText"
+                      placeholder="Tìm kiếm nhà thông minh.." />
+                  </span>
+                  &nbsp;&nbsp;
+                  <p-fileUpload mode="basic" accept="image/*"
+                    [maxFileSize]="1000000" label="Import" chooseLabel="Import"
+                    class="p-mr-2 p-d-inline-block"></p-fileUpload>&nbsp;
+                  <button pButton pRipple label="Export" icon="pi pi-upload"
+                    class="p-button-help"></button>
+                </ng-template>
+              </p-toolbar>
+              <br>
+              <ng-container *ngIf="smartHome">
+                <p-table #dt [value]="deviceapis"
+                  [rows]="10"
+                  [paginator]="true"
+                  [globalFilterFields]="['name','homeServerCode','producer']"
+                  [rowHover]="true"
+                  dataKey="id" selectionMode="single"
+                  currentPageReportTemplate="Showing {first}
+                  to {last} of
+                  {totalRecords} entries"
+                  [showCurrentPageReport]="true">
+                  <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                      <div class="row">
+                        <div class="col-sm-8"> <h5 class="p-m-0">Cấu hình API
+                            {{smartHome.name}}</h5></div>
+                        <div class="col-sm-4">
+                          <span class="p-input-icon-right">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text"
+                              (input)="dt.filterGlobal($event.target.value,
+                              'contains')"
+                              placeholder="Search..." />
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th pSortableColumn="userName">Tên nhà thông minh<p-sortIcon
+                          field="userName"></p-sortIcon></th>
+                      <th pSortableColumn="userName">Mã nhà thông minh<p-sortIcon
+                          field="userName"></p-sortIcon></th>
+                      <th pSortableColumn="userName">Home Server<p-sortIcon
+                          field="userName"></p-sortIcon></th>
+                      <th pSortableColumn="address">Thiết bị<p-sortIcon
+                          field="address"></p-sortIcon></th>
+                      <th pSortableColumn="address">Method<p-sortIcon
+                          field="address"></p-sortIcon></th>
+                      <th>Url</th>
+                      <th style="width: 8rem;">Tháo tác</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-api>
+                    <!-- <tr>
+                      <td>{{api.homeServerName}}</td>
+                      <td>{{api.deviceName}}</td>
+                      <td>{{api.method}}</td>
+                      <td>{{api.url}}</td>
+                      <td>{{api.contentType}}</td>
+                      <td>{{api.values}}</td>
+                      <td>
+                        <button pButton pRipple icon="pi pi-pencil"
+                          (click)="updateDevice(api)"
+                          class="p-button-rounded
+                          p-button-success p-mr-2"></button>&nbsp;
+                        <button pButton pRipple icon="pi pi-trash"
+                          (click)="deleteDeviceAPI(api.id)"
+                          class="p-button-rounded
+                          p-button-warning"></button>
+                      </td>
+                    </tr> -->
+                  </ng-template>
+                </p-table>
+              </ng-container>
+            </p-tabPanel>
+          </p-tabView>
+
+
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+<p-dialog [(visible)]="dialogCreateDeivceApi" [style]="{width: '600px'}"
+  header="Thêm mới thiết bị" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="name">Tên API</label>
+      <input type="text" pInputText id="name"
+        [(ngModel)]="createDeviceApi.name"
+        required autofocus />
+      <!-- <small class="p-invalid" *ngIf="submitted && !createSmartHome.name">Tên
+        nhà
+        không được để trống</small> -->
+    </div>
+    <!-- <div class="p-field">
+            <label for="deviceCode">Mã thiết bị</label>
+            <input type="text" pInputText id="deviceCode"
+                [(ngModel)]="createDeviceApi.deviceCode"
+                required autofocus />
+        </div> -->
+    <div class="p-field">
+      <label for="name">Homeserver sử dụng</label>
+      <p-dropdown [options]="homeservers"
+        [(ngModel)]="createDeviceApi.homeServerId"
+        placeholder="Select a City">
+        <ng-template let-group pTemplate="group">
+          <div class="p-d-flex p-ai-center">
+            <span>{{group.label}}</span>
+          </div>
+        </ng-template>
+      </p-dropdown>
+    </div>
+    <div class="p-field">
+      <label for="typeDevice">Thiết bị sử dụng</label>
+      <p-dropdown [options]="devices"
+        [(ngModel)]="createDeviceApi.deviceId"
+        placeholder="Select a device">
+        <ng-template let-group pTemplate="group">
+          <div class="p-d-flex p-ai-center">
+            <span>{{group.label}}</span>
+          </div>
+        </ng-template>
+      </p-dropdown>
+    </div>
+    <div class="p-field">
+      <label for="typeDevice">Gateways</label>
+      <p-dropdown [options]="statuses"
+
+        placeholder="Select a Gateways">
+        <ng-template let-group pTemplate="group">
+          <div class="p-d-flex p-ai-center">
+            <span>{{group.label}}</span>
+          </div>
+        </ng-template>
+      </p-dropdown>
+    </div>
+
+    <div class="p-field">
+      <label for="url">Đường dẫn</label>
+      <input type="text" pInputText id="url"
+        [(ngModel)]="createDeviceApi.url"
+        required autofocus />
+      <!-- <small class="p-invalid" *ngIf="submitted && !createSmartHome.userName">Tên
+        chủ nhà
+        không được để trống</small> -->
+    </div>
+    <div class="p-field">
+      <label for="method">Method</label>
+      <input type="text" pInputText id="method"
+        [(ngModel)]="createDeviceApi.method"
+        required autofocus />
+      <!-- <small class="p-invalid" *ngIf="submitted && !createSmartHome.userName">Tên
+      chủ nhà
+      không được để trống</small> -->
+    </div>
+    <div class="p-field">
+      <label for="deviceCode">ContentType</label>
+      <input type="text" pInputText id="deviceCode"
+        [(ngModel)]="createDeviceApi.contentType"
+        required autofocus />
+      <!-- <small class="p-invalid" *ngIf="submitted && !createSmartHome.userName">Tên
+      chủ nhà
+      không được để trống</small> -->
+    </div>
+
+    <div class="p-field">
+      <label for="note">Định dạng dữ liệu</label>
+      <textarea id="note" pInputTextarea
+        [(ngModel)]="createDeviceApi.values"
+        rows="3"
+        cols="20"></textarea>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+
+    <button type="button" (click)="closeCreateDeviceAPI()"
+      class="btn btn-danger"><i class="fa fa-trash"
+        aria-hidden="true"></i>Hủy</button>&nbsp;
+    <button type="button" (click)="submitCreateDeviceAPI()"
+      class="btn btn-success"><i class="fa fa-check"></i>Lưu</button>
+  </ng-template>
+</p-dialog>

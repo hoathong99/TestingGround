@@ -1,0 +1,8 @@
+.mn-bd-item{
+    border: 1px solid #a7a7a7;
+    border-radius: 5%;
+    box-shadow: 10px 10px 10px #535353;
+}
+.mn-bd-item:hover{
+    transform: translateY(-10px);
+}

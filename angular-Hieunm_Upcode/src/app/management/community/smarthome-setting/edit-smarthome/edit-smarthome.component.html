@@ -1,0 +1,552 @@
+
+
+<div [@routerTransition]>
+    <p-toast></p-toast>
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6">
+                    <h1>{{ "Cấu hình nhà thông minh"}}</h1>
+                </div>
+                <div class="col-6 text-right">
+                    <a href="javascript:;"
+                        [routerLink]="['../../smarthomesetting']"
+                        class="btn bg-red">
+                        <i class="fa fa-arrow-alt-circle-left"></i>
+                        {{"Trở về"}}
+                    </a>
+                    &nbsp;
+                    <a href="javascript:;" class="btn bg-blue"
+                        (click)="submitEdit()">
+                        <i class="fa fa-save"></i>
+                        {{"Lưu"}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content px-2">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title"><strong>Thông tin căn hộ</strong></h3>
+                        </div>
+                        <br>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <label>Tên nhà thông minh :</label>
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="p-inputgroup">
+                                        <input type="text"
+                                            [(ngModel)]="editSmartHome.name"
+                                            pInputText/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label>Tên chủ nhà :</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="p-inputgroup">
+                                        <input type="text"
+                                            [(ngModel)]="editSmartHome.userName"
+                                            pInputText/>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <label>Địa chỉ :</label>
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="p-inputgroup">
+                                        <input type="text"
+                                            [(ngModel)]="editSmartHome.address"
+                                            pInputText/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label for="name">Ngày nâng cấp :</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="p-inputgroup">
+                                        <input type="date"
+                                            [(ngModel)]="editSmartHome.lastModificationTime"
+                                            pInputText/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title"><strong>Cài đặt</strong></h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-2"><label for="name">Chọn
+                                        loại Homeserver :</label></div>
+                                <div class="col-sm-4">
+                                    <div>
+
+                                        <p-dropdown [options]="homeserveroption"
+                                            [(ngModel)]="editSmartHome.homeServerId"
+                                            placeholder="Select a HomeServer"
+                                            [showClear]="true"
+                                            autoWidth="false"
+                                            [style]="{'minWidth':'100%'}">
+                                            <ng-template let-group
+                                                pTemplate="group">
+                                                <div class="p-d-flex
+                                                    p-ai-center">
+                                                    <span>{{group.label}}</span>
+                                                </div>
+                                            </ng-template>
+                                        </p-dropdown>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-6 text-right">
+                                    <button pButton pRipple
+                                        label="Thêm tầng"
+                                        icon="pi pi-plus"
+                                        (click)="addColumn()"
+                                        class="p-button-success p-mr-2"></button>&nbsp;
+                                    <button pButton pRipple label="Bớt tầng"
+                                        icon="pi pi-minus"
+                                        (click)="removeColumn()"
+                                        class="p-button-warning p-mr-2"></button>
+                                </div>
+                            </div>
+                            <br>
+                            <hr style="text-align:left;margin-left:0">
+                            <ng-container *ngFor="let col of columns; let
+                                i=index">
+                                <div class="row">
+                                    <div class="col-12 col-sm-6 col-md-3">
+                                        <h5><strong>{{col.name}}</strong></h5>
+                                        <div class="row">
+                                            &nbsp;&nbsp;&nbsp;
+                                            <button pButton pRipple
+                                                label="Thêm phòng"
+                                                icon="pi pi-plus"
+                                                (click)="addRooms(i)"
+                                                class="p-button-success p-mr-2"></button>&nbsp;
+                                            <button pButton pRipple label="Bớt
+                                                phòng"
+                                                icon="pi pi-minus"
+                                                (click)="minusRooms(i)"
+                                                class="p-button-warning p-mr-2"></button>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-12 col-sm-6 col-md-3"
+                                        *ngFor="let ro of
+                                        columns[i].rooms; let
+                                        p=index">
+                                        <div class="info-box mb-3">
+                                            <span style="cursor:pointer"
+                                                class="info-box-icon
+                                                bg-primary elevation-1"
+                                                (click)="openEditRoom(ro,p,i)">
+                                                <i class="fas fa-info-circle"></i>
+                                            </span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text">
+                                                    {{ro.name}}
+                                                </span>
+                                                <span class="info-box-number">
+                                                    {{0+ro.lightingNumber+ro.curtainNumber+ro.airNumber+ro.watterNumber+ro.doorEntryNumber+ro.connectionNumber}}+
+                                                    devices
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr style="text-align:left;margin-left:0"></ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title"><strong>Tính năng phụ</strong></h3>
+                        </div>
+                        <br>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">Thông tin cơ bản</div>
+                                <div class="col-sm-6"> Chi tiết</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<p-dialog [(visible)]="dialogEditRoom" [style]="{width: '1200px'}"
+    header="Cài đặt phòng" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title"><strong>Thông tin phòng</strong></h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="p-field">
+                            <label for="name">Tên phòng</label>
+                            <input type="text" pInputText id="name"
+                                [(ngModel)]="editRoom.name"
+                                required autofocus />
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="p-field">
+                            <label for="name">Hình nền</label>
+                            <p-fileUpload mode="basic" accept="image/*"
+                                [maxFileSize]="1000000" label="Thêm ảnh"
+                                chooseLabel="Thêm ảnh"
+                                class="p-mr-2 p-d-inline-block"></p-fileUpload>&nbsp;
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title"><strong>Thiết lập chức năng</strong></h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="p-field-checkbox">
+                            <p-checkbox name="group1" binary="true"
+                                [(ngModel)]="editRoom.isSmartLighting"
+                                inputId="ny"></p-checkbox>
+                            <label class="checkboxlabel" for="ny">Smart Lighting</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-9" *ngIf="editRoom.isSmartLighting">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <label for="name">Chọn loại thiết bị</label>
+                                <p-dropdown [options]="lightoptions"
+                                    [(ngModel)]="editRoom.lightingId"
+                                    placeholder="Select a device"
+                                    [showClear]="true">
+                                    <ng-template let-group pTemplate="group">
+                                        <div class="p-d-flex p-ai-center">
+                                            <span>{{group.label}}</span>
+                                        </div>
+                                    </ng-template></p-dropdown>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="name">Số thiết bị</label>
+                                <input type="number" pInputText id="name"
+                                    [(ngModel)]="editRoom.lightingNumber"
+                                    required autofocus />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="p-field-checkbox">
+                            <p-checkbox name="group1" binary="true"
+                                [(ngModel)]="editRoom.isSmartCurtain"
+                                inputId="ct"></p-checkbox>
+                            <label class="checkboxlabel" for="ct">Smart Curtain</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-9" *ngIf="editRoom.isSmartCurtain">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <label for="name">Chọn loại thiết bị</label>
+                                <p-dropdown [options]="deviceoptions"
+                                    [(ngModel)]="editRoom.curtainId"
+                                    placeholder="Select a device"
+                                    [showClear]="true">
+                                    <ng-template let-group pTemplate="group">
+                                        <div class="p-d-flex p-ai-center">
+                                            <span>{{group.label}}</span>
+                                        </div>
+                                    </ng-template></p-dropdown>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="name">Số thiết bị</label>
+                                <input type="number" pInputText id="name"
+                                    [(ngModel)]="editRoom.curtainNumber"
+                                    required autofocus />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="p-field-checkbox">
+                            <p-checkbox name="group1" binary="true"
+                                [(ngModel)]="editRoom.isSmartAir"
+                                inputId="sa"></p-checkbox>
+                            <label class="checkboxlabel" for="sa">Smart Air</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-9" *ngIf="editRoom.isSmartAir">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <label for="name">Chọn loại thiết bị</label>
+                                <p-dropdown [options]="deviceoptions"
+                                    [(ngModel)]="editRoom.airId"
+                                    placeholder="Select a device"
+                                    [showClear]="true">
+                                    <ng-template let-group pTemplate="group">
+                                        <div class="p-d-flex p-ai-center">
+                                            <span>{{group.label}}</span>
+                                        </div>
+                                    </ng-template></p-dropdown>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="name">Số thiết bị</label>
+                                <input type="number" pInputText id="name"
+                                    [(ngModel)]="editRoom.airNumber"
+                                    required autofocus />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="p-field-checkbox">
+                            <p-checkbox name="group1" binary="true"
+                                [(ngModel)]="editRoom.isSmartSecurity"
+                                inputId="ss"></p-checkbox>
+                            <label class="checkboxlabel" for="ss">Smart Security</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-9" *ngIf="editRoom.isSmartSecurity">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <label for="name">Chọn loại thiết bị</label>
+                                <p-dropdown [options]="deviceoptions"
+                                    [(ngModel)]="editRoom.securityId"
+                                    placeholder="Select a device"
+                                    [showClear]="true">
+                                    <ng-template let-group pTemplate="group">
+                                        <div class="p-d-flex p-ai-center">
+                                            <span>{{group.label}}</span>
+                                        </div>
+                                    </ng-template></p-dropdown>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="name">Số thiết bị</label>
+                                <input type="number" pInputText id="name"
+                                    [(ngModel)]="editRoom.securityNumber"
+                                    required autofocus />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="p-field-checkbox">
+                            <p-checkbox name="group1" binary="true"
+                                [(ngModel)]="editRoom.isSmartDoorEntry"
+                                inputId="sd"></p-checkbox>
+                            <label class="checkboxlabel" for="sd">Smart Door
+                                Entry</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-9" *ngIf="editRoom.isSmartDoorEntry">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <label for="name">Chọn loại thiết bị</label>
+                                <p-dropdown [options]="deviceoptions"
+                                    [(ngModel)]="editRoom.doorEntryId"
+                                    placeholder="Select a device"
+                                    [showClear]="true">
+                                    <ng-template let-group pTemplate="group">
+                                        <div class="p-d-flex p-ai-center">
+                                            <span>{{group.label}}</span>
+                                        </div>
+                                    </ng-template></p-dropdown>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="name">Số thiết bị</label>
+                                <input type="number" pInputText id="name"
+                                    [(ngModel)]="editRoom.doorEntryNumber"
+                                    required autofocus />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="p-field-checkbox">
+                            <p-checkbox name="group1" binary="true"
+                                [(ngModel)]="editRoom.isSmartConnection"
+                                inputId="sc"></p-checkbox>
+                            <label class="checkboxlabel" for="sc">Smart
+                                Connection</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-9" *ngIf="editRoom.isSmartConnection">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <label for="name">Chọn loại thiết bị</label>
+                                <p-dropdown [options]="deviceoptions"
+                                    [(ngModel)]="editRoom.connectionId"
+                                    placeholder="Select a device"
+                                    [showClear]="true">
+                                    <ng-template let-group pTemplate="group">
+                                        <div class="p-d-flex p-ai-center">
+                                            <span>{{group.label}}</span>
+                                        </div>
+                                    </ng-template></p-dropdown>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="name">Số thiết bị</label>
+                                <input type="number" pInputText id="name"
+                                    [(ngModel)]="editRoom.connectionNumber"
+                                    required autofocus />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="p-field-checkbox">
+                            <p-checkbox name="group1" binary="true"
+                                [(ngModel)]="editRoom.isSmartWatter"
+                                inputId="sw"></p-checkbox>
+                            <label class="checkboxlabel" for="sw">Smart Water</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-9" *ngIf="editRoom.isSmartWatter">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <label for="name">Chọn loại thiết bị</label>
+                                <p-dropdown [options]="deviceoptions"
+                                    [(ngModel)]="editRoom.watterId"
+                                    placeholder="Select a device"
+                                    [showClear]="true">
+                                    <ng-template let-group pTemplate="group">
+                                        <div class="p-d-flex p-ai-center">
+                                            <span>{{group.label}}</span>
+                                        </div>
+                                    </ng-template></p-dropdown>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="name">Số thiết bị</label>
+                                <input type="number" pInputText id="name"
+                                    [(ngModel)]="editRoom.watterNumber"
+                                    required autofocus />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="p-field-checkbox">
+                            <p-checkbox name="group1" binary="true"
+                                [(ngModel)]="editRoom.isSmartConditioner"
+                                inputId="scd"></p-checkbox>
+                            <label class="checkboxlabel" for="scd">Smart
+                                Conditioner</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-9" *ngIf="editRoom.isSmartConditioner">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <label for="name">Chọn loại thiết bị</label>
+                                <p-dropdown [options]="deviceoptions"
+                                    [(ngModel)]="editRoom.conditionerId"
+                                    placeholder="Select a device"
+                                    [showClear]="true">
+                                    <ng-template let-group pTemplate="group">
+                                        <div class="p-d-flex p-ai-center">
+                                            <span>{{group.label}}</span>
+                                        </div>
+                                    </ng-template></p-dropdown>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="name">Số thiết bị</label>
+                                <input type="number" pInputText id="name"
+                                    [(ngModel)]="editRoom.conditionerNumber"
+                                    required autofocus />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="p-field-checkbox">
+                            <p-checkbox name="group1" binary="true"
+                                [(ngModel)]="editRoom.isSmartFireAlarm"
+                                inputId="scd"></p-checkbox>
+                            <label class="checkboxlabel" for="scd">Smart
+                                Fire Alarm</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-9" *ngIf="editRoom.isSmartFireAlarm">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <label for="name">Chọn loại thiết bị</label>
+                                <p-dropdown [options]="deviceoptions"
+                                    [(ngModel)]="editRoom.fireAlarmId"
+                                    placeholder="Select a device"
+                                    [showClear]="true">
+                                    <ng-template let-group pTemplate="group">
+                                        <div class="p-d-flex p-ai-center">
+                                            <span>{{group.label}}</span>
+                                        </div>
+                                    </ng-template></p-dropdown>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="name">Số thiết bị</label>
+                                <input type="number" pInputText id="name"
+                                    [(ngModel)]="editRoom.fireAlarmNumber"
+                                    required autofocus />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+
+    </ng-template>
+    <ng-template pTemplate="footer">
+
+        <button type="button" (click)="closeEditRoom()"
+            class="btn btn-danger"><i class="fa fa-trash"
+                aria-hidden="true"></i>&nbsp;Hủy</button>&nbsp;
+        <button type="button" (click)="submitEditRoom()"
+            class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Lưu</button>
+    </ng-template>
+</p-dialog>

@@ -1,0 +1,180 @@
+
+<div [@routerTransition]>
+  <p-toast></p-toast>
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6">
+          <h1>{{ "Quản lý nhà thông minh"}}</h1>
+        </div>
+        <div class="col-6 text-right">
+          <a href="javascript:;" class="btn bg-red" [routerLink]="['../']">
+            <i class="fa fa-arrow-alt-circle-left"></i>
+            {{"Trở về"}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content px-2">
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-body">
+          <p-toolbar styleClass="p-mb-4">
+            <ng-template pTemplate="left">
+              <button pButton pRipple label="New" icon="pi pi-plus"
+                (click)="addNewSmartHome()"
+                class="p-button-success p-mr-2"></button>&nbsp;
+              <button pButton pRipple [label]="Delete" icon="pi pi-trash"
+                class="p-button-danger"></button>
+            </ng-template>
+
+            <ng-template pTemplate="right">
+              <p-fileUpload mode="basic" accept="image/*"
+                [maxFileSize]="1000000" label="Import" chooseLabel="Import"
+                class="p-mr-2 p-d-inline-block"></p-fileUpload>&nbsp;
+              <button pButton pRipple label="Export" icon="pi pi-upload"
+                class="p-button-help"></button>
+            </ng-template>
+          </p-toolbar>
+          <br>
+          <ng-container>
+            <p-table #dt [value]="smarthomes" [rows]="10"
+              [paginator]="true"
+              [globalFilterFields]="['name','userName','smartHomeCode']"
+              [(selection)]="selectedSmartHomes" [rowHover]="true"
+              dataKey="id" selectionMode="single"
+              currentPageReportTemplate="Showing {first} to {last} of
+              {totalRecords} entries" [showCurrentPageReport]="true">
+              <ng-template pTemplate="caption">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                  <div class="row">
+                    <div class="col-sm-8"> <h5 class="p-m-0">Danh sách nhà thông
+                        minh</h5></div>
+                    <div class="col-sm-4">
+                      <span class="p-input-icon-right">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text"
+                          (input)="dt.filterGlobal($event.target.value,
+                          'contains')"
+                          placeholder="Search..." />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header">
+                <tr>
+                  <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                  </th>
+                  <th pSortableColumn="name">Tên nhà thông minh <p-sortIcon
+                      field="name"></p-sortIcon></th>
+                  <th pSortableColumn="userName">Tên chủ nhà <p-sortIcon
+                      field="userName"></p-sortIcon></th>
+                  <th pSortableColumn="address">Địa chỉ <p-sortIcon
+                      field="address"></p-sortIcon></th>
+                  <th>Mã nhà thông minh</th>
+                  <th> Status </th>
+                  <th style="width: 10rem;">Thao tác</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-smarthome>
+                <tr>
+                  <td>
+                    <p-tableCheckbox [value]="smarthome"></p-tableCheckbox>
+                  </td>
+                  <td>{{smarthome.name}}</td>
+                  <td>{{smarthome.userName}}</td>
+                  <td>{{smarthome.address}}</td>
+                  <td>{{smarthome.smartHomeCode}}</td>
+                  <td></td>
+                  <td>
+                    <button pButton pRipple icon="pi pi-pencil"
+                      [routerLink]="['../editsmarthome', smarthome.id]"
+                      class="p-button-rounded p-button-success p-mr-2"></button>&nbsp;
+                    <button pButton pRipple icon="pi pi-trash"
+                      class="p-button-rounded p-button-warning"
+                      (click)="deleteSmarthome(smarthome.id)"></button>
+                  </td>
+                </tr>
+              </ng-template>
+              <!-- <ng-template pTemplate="summary">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                  In total there are {{smarthomes$ ? smarthomes$.length : 0 }}
+                  smarthomes.
+                </div>
+              </ng-template> -->
+            </p-table>
+
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<p-dialog [(visible)]="newsmarthome" [style]="{width: '600px'}"
+  header="Thêm mới căn hộ thông minh" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="name">Tên nhà</label>
+      <input type="text" pInputText id="name"
+        [(ngModel)]="createSmartHome.name"
+        required autofocus />
+      <small class="p-invalid" *ngIf="submitted && !createSmartHome.name">Tên
+        nhà
+        không được để trống</small>
+    </div>
+    <div class="p-field">
+      <label for="userName">Tên chủ nhà</label>
+      <input type="text" pInputText id="userName"
+        [(ngModel)]="createSmartHome.userName"
+        required autofocus />
+      <small class="p-invalid" *ngIf="submitted && !createSmartHome.userName">Tên
+        chủ nhà
+        không được để trống</small>
+    </div>
+
+    <div class="p-field">
+      <label for="address">Địa chỉ nhà</label>
+      <input type="text" pInputText id="address"
+        [(ngModel)]="createSmartHome.address"
+        required autofocus />
+      <small class="p-invalid" *ngIf="submitted && !createSmartHome.address">Tên
+        chủ nhà
+        không được để trống</small>
+    </div>
+
+    <div class="p-field">
+      <label for="note">Ghi chú</label>
+      <textarea id="note" pInputTextarea
+        rows="3" [(ngModel)]="createSmartHome.note"
+        cols="20"></textarea>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+
+    <button type="button" (click)="closeNewSmartHome()"
+      class="btn btn-danger"><i class="fa fa-trash"
+        aria-hidden="true"></i>Hủy</button>&nbsp;
+    <button type="button" (click)="submitNewSmartHome()"
+      class="btn btn-success"><i class="fa fa-check"></i>Lưu</button>
+  </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="dialogCode" [style]="{width: '500px'}"
+  header="Mã nhà thông minh của bạn là" [modal]="true"
+  styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <h4 style="text-align: center;"><strong>{{smartHomeCode}}</strong></h4>
+  </ng-template>
+  <!-- <ng-template pTemplate="footer">
+
+    <button type="button" (click)="closeNewSmartHome()"
+      class="btn btn-danger"><i class="fa fa-trash"
+        aria-hidden="true"></i>Hủy</button>&nbsp;
+    
+  </ng-template> -->
+</p-dialog>

@@ -1,0 +1,404 @@
+
+<div [@routerTransition]>
+  <p-toast></p-toast>
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6">
+          <h1>{{ "Quản lý thiết bị"}}</h1>
+        </div>
+        <div class="col-6 text-right">
+          <a href="javascript:;" class="btn bg-red" [routerLink]="['../']">
+            <i class="fa fa-arrow-alt-circle-left"></i>
+            {{"Trở về"}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content px-2">
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-body">
+          <p-tabView>
+            <p-tabPanel header="Thiết bị smarthomes">
+              <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                  <button pButton pRipple label="New" icon="pi pi-plus"
+                    (click)="openCreateDevice()"
+                    class="p-button-success p-mr-2"></button>&nbsp;
+                  <button pButton pRipple [label]="Delete" icon="pi pi-trash"
+                    class="p-button-danger"></button>
+                </ng-template>
+
+                <ng-template pTemplate="right">
+                  <p-fileUpload mode="basic" accept="image/*"
+                    [maxFileSize]="1000000" label="Import" chooseLabel="Import"
+                    class="p-mr-2 p-d-inline-block"></p-fileUpload>&nbsp;
+                  <button pButton pRipple label="Export" icon="pi pi-upload"
+                    class="p-button-help"></button>
+                </ng-template>
+              </p-toolbar>
+              <br>
+              <ng-container>
+                <p-table #dt [value]="devices" [rows]="10"
+                  [paginator]="true"
+                  [globalFilterFields]="['name','deviceCode','producer']"
+                  [rowHover]="true"
+                  dataKey="id" selectionMode="single"
+                  currentPageReportTemplate="Showing {first} to {last} of
+                  {totalRecords} entries" [showCurrentPageReport]="true">
+                  <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                      <div class="row">
+                        <div class="col-sm-8"> <h5 class="p-m-0">Danh sách thiết
+                            bị</h5></div>
+                        <div class="col-sm-4 text-right">
+                          <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text"
+                              (input)="dt.filterGlobal($event.target.value,
+                              'contains')"
+                              placeholder="Search..." />
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th pSortableColumn="name">Tên thiết bị <p-sortIcon
+                          field="name"></p-sortIcon></th>
+                      <th pSortableColumn="code">Mã thiết bị <p-sortIcon
+                          field="code"></p-sortIcon></th>
+                      <th>
+                        <div class="p-d-flex p-jc-between p-ai-center">
+                          Loại thiết bị
+                          <p-columnFilter field="representative" matchMode="in"
+                            display="menu" [showMatchModes]="false"
+                            [showOperator]="false" [showAddButton]="false">
+                            <ng-template pTemplate="filter" let-value
+                              let-filter="filterCallback">
+                              <p-dropdown [ngModel]="value"
+                                [options]="deviceoptions"
+                                (onChange)="filter($event.value)"
+                                placeholder="Chọn loại">
+                                <ng-template let-option pTemplate="item">
+                                  <span [class]="'customer-badge status-' +
+                                    option.value">{{option.label}}</span>
+                                </ng-template>
+                              </p-dropdown>
+                            </ng-template>
+                          </p-columnFilter>
+                        </div>
+                      </th>
+                      <th style="width: 16rem;" pSortableColumn="address">Homeserver
+                        khả dụng<p-sortIcon
+                          field="address"></p-sortIcon></th>
+                      <th>Hãng sản xuất</th>
+                      <th>Trạng thái</th>
+                      <th style="width: 8rem;">Thao tác</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-device>
+                    <tr>
+                      <td>{{device.name}}</td>
+                      <td>{{device.deviceCode}}</td>
+                      <td>{{device.typeDevice}}</td>
+                      <td>{{device.homeserverAvailables}}</td>
+                      <td>{{device.producer}}</td>
+                      <td></td>
+                      <td>
+                        <button pButton pRipple icon="pi pi-pencil"
+                          (click)="updateDevice(device)"
+                          class="p-button-rounded p-button-success p-mr-2"></button>&nbsp;
+                        <button pButton pRipple icon="pi pi-trash"
+                          (click)="deleteDevice(device.id)"
+                          class="p-button-rounded p-button-warning"></button>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </ng-container>
+            </p-tabPanel>
+            <p-tabPanel header="Homeserver smarthome">
+              <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                  <button pButton pRipple label="New" icon="pi pi-plus"
+                    (click)="openCreateHomeServer()"
+                    class="p-button-success p-mr-2"></button>&nbsp;
+                  <button pButton pRipple [label]="Delete" icon="pi pi-trash"
+                    class="p-button-danger"></button>
+                </ng-template>
+
+                <ng-template pTemplate="right">
+                  <p-fileUpload mode="basic" accept="image/*"
+                    [maxFileSize]="1000000" label="Import" chooseLabel="Import"
+                    class="p-mr-2 p-d-inline-block"></p-fileUpload>&nbsp;
+                  <button pButton pRipple label="Export" icon="pi pi-upload"
+                    class="p-button-help"></button>
+                </ng-template>
+              </p-toolbar>
+              <br>
+              <ng-container>
+                <p-table #dthome [value]="homeservers" [rows]="10"
+                  [paginator]="true"
+                  [globalFilterFields]="['name','homeServerCode','producer']"
+                  [rowHover]="true"
+                  dataKey="id" selectionMode="single"
+                  currentPageReportTemplate="Showing {first} to {last} of
+                  {totalRecords} entries" [showCurrentPageReport]="true">
+                  <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                      <div class="row">
+                        <div class="col-sm-8"> <h5 class="p-m-0">Danh sách home
+                            server</h5></div>
+                        <div class="col-sm-4 text-right">
+                          <span class="p-input-icon-right">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text"
+                              (input)="dt.filterGlobal($event.target.value,
+                              'contains')"
+                              placeholder="Search..." />
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th pSortableColumn="name">Tên homeserver <p-sortIcon
+                          field="name"></p-sortIcon></th>
+                      <th pSortableColumn="userName">Mã homeserver<p-sortIcon
+                          field="userName"></p-sortIcon></th>
+                      <th pSortableColumn="address">Địa chỉ IP<p-sortIcon
+                          field="address"></p-sortIcon></th>
+                      <th>Port</th>
+                      <th> Hãng sản xuất </th>
+                      <th> Trạng thái </th>
+                      <th style="width: 8rem;">Thao tác</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-homeserver>
+                    <tr>
+                      <td>{{homeserver.name}}</td>
+                      <td>{{homeserver.homeServerCode}}</td>
+                      <td>{{homeserver.ip}}</td>
+                      <td>{{homeserver.port}}</td>
+                      <td>{{homeserver.producer}}</td>
+                      <td></td>
+                      <td>
+                        <button pButton pRipple icon="pi pi-pencil"
+                          (click)="updateHomeServer(homeserver)"
+                          class="p-button-rounded p-button-success p-mr-2"></button>&nbsp;
+                        <button pButton pRipple icon="pi pi-trash"
+                          (click)="deleteHomeServer(homeserver.id)"
+                          class="p-button-rounded p-button-warning"></button>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </ng-container>
+            </p-tabPanel>
+            <p-tabPanel header="Mở rộng">
+              <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                  <button pButton pRipple label="New" icon="pi pi-plus"
+                    class="p-button-success p-mr-2"></button>&nbsp;
+                  <button pButton pRipple [label]="Delete" icon="pi pi-trash"
+                    class="p-button-danger"></button>
+                </ng-template>
+
+                <ng-template pTemplate="right">
+                  <p-fileUpload mode="basic" accept="image/*"
+                    [maxFileSize]="1000000" label="Import" chooseLabel="Import"
+                    class="p-mr-2 p-d-inline-block"></p-fileUpload>&nbsp;
+                  <button pButton pRipple label="Export" icon="pi pi-upload"
+                    class="p-button-help"></button>
+                </ng-template>
+              </p-toolbar>
+              <br>
+              <ng-container>
+                <p-table #dt>
+                  <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                      <div class="row">
+                        <div class="col-sm-8"> <h5 class="p-m-0">Danh sách thiết
+                            bị mở rộng</h5></div>
+                        <div class="col-sm-4">
+                          <span class="p-input-icon-right">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text"
+                              (input)="dt.filterGlobal($event.target.value,
+                              'contains')"
+                              placeholder="Search..." />
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th style="width: 3rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                      </th>
+                      <th pSortableColumn="name">Tên thiết bị <p-sortIcon
+                          field="name"></p-sortIcon></th>
+                      <th pSortableColumn="userName">Loại thiết bị<p-sortIcon
+                          field="userName"></p-sortIcon></th>
+                      <th pSortableColumn="address">Địa chỉ IP<p-sortIcon
+                          field="address"></p-sortIcon></th>
+                      <th>Method</th>
+                      <th> Status </th>
+                      <th style="width: 10rem;"></th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body">
+                  </ng-template>
+                </p-table>
+              </ng-container>
+            </p-tabPanel>
+          </p-tabView>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+<p-dialog [(visible)]="dialogCreateDeivce" [style]="{width: '600px'}"
+  header="Thêm mới thiết bị" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="name">Tên thiết bị</label>
+      <input type="text" pInputText id="name"
+        [(ngModel)]="createDevice.name"
+        required autofocus />
+      <!-- <small class="p-invalid" *ngIf="submitted && !createSmartHome.name">Tên
+        nhà
+        không được để trống</small> -->
+    </div>
+    <div class="p-field">
+      <label for="deviceCode">Mã thiết bị</label>
+      <input type="text" pInputText id="deviceCode"
+        [(ngModel)]="createDevice.deviceCode"
+        required autofocus />
+      <!-- <small class="p-invalid" *ngIf="submitted && !createSmartHome.userName">Tên
+        chủ nhà
+        không được để trống</small> -->
+    </div>
+
+    <div class="p-field">
+      <label for="typeDevice">Loại thiết bị</label>
+      <p-dropdown [options]="deviceoptions"
+        [(ngModel)]="createDevice.typeDevice"
+        placeholder="Select a City">
+        <ng-template let-group pTemplate="group">
+          <div class="p-d-flex p-ai-center">
+            <span>{{group.label}}</span>
+          </div>
+        </ng-template>
+      </p-dropdown>
+    </div>
+    <div class="p-field">
+      <label for="name">Homeserver khả dụng</label>
+      <p-dropdown [options]="statuses"
+        [(ngModel)]="createDevice.homeserverAvailables"
+        placeholder="Select a City">
+        <ng-template let-group pTemplate="group">
+          <div class="p-d-flex p-ai-center">
+            <span>{{group.label}}</span>
+          </div>
+        </ng-template>
+      </p-dropdown>
+    </div>
+    <div class="p-field">
+      <label for="deviceCode">Hãng sản xuất</label>
+      <input type="text" pInputText id="deviceCode"
+        [(ngModel)]="createDevice.producer"
+        required autofocus />
+      <!-- <small class="p-invalid" *ngIf="submitted && !createSmartHome.userName">Tên
+        chủ nhà
+        không được để trống</small> -->
+    </div>
+
+    <div class="p-field">
+      <label for="note">Ghi chú</label>
+      <textarea id="note" pInputTextarea
+        rows="3"
+        cols="20"></textarea>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+
+    <button type="button" (click)="closeCreateDevice()"
+      class="btn btn-danger"><i class="fa fa-trash"
+        aria-hidden="true"></i>Hủy</button>&nbsp;
+    <button type="button" (click)="submitCreateDevice()"
+      class="btn btn-success"><i class="fa fa-check"></i>Lưu</button>
+  </ng-template>
+</p-dialog>
+
+
+<p-dialog [(visible)]="dialogCreateHomeserver" [style]="{width: '600px'}"
+  header="Thêm mới thiết bị" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="name">Tên home server</label>
+      <input type="text" pInputText id="name"
+        [(ngModel)]="createHomeserver.name"
+        required autofocus />
+      <!-- <small class="p-invalid" *ngIf="submitted && !createSmartHome.name">Tên
+        nhà
+        không được để trống</small> -->
+    </div>
+    <div class="p-field">
+      <label for="homeServerCode">Mã home server</label>
+      <input type="text" pInputText id="homeServerCode"
+        [(ngModel)]="createHomeserver.homeServerCode"
+        required autofocus />
+      <!-- <small class="p-invalid" *ngIf="submitted && !createSmartHome.userName">Tên
+        chủ nhà
+        không được để trống</small> -->
+    </div>
+    <div class="p-field">
+      <label for="ip">Địa chỉ Ip</label>
+      <input type="text" pInputText id="ip"
+        [(ngModel)]="createHomeserver.ip"
+        required autofocus />
+    </div>
+    <div class="p-field">
+      <label for="port">Port</label>
+      <input type="number" pInputText id="port"
+        [(ngModel)]="createHomeserver.port"
+        required autofocus />
+    </div>
+    <div class="p-field">
+      <label for="producer">Hãng sản xuất</label>
+      <input type="text" pInputText id="producer"
+        [(ngModel)]="createHomeserver.producer"
+        required autofocus />
+      <!-- <small class="p-invalid" *ngIf="submitted && !createSmartHome.userName">Tên
+        chủ nhà
+        không được để trống</small> -->
+    </div>
+
+
+    <div class="p-field">
+      <label for="note">Ghi chú</label>
+      <textarea id="note" pInputTextarea
+        rows="3"
+        cols="20"></textarea>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+
+    <button type="button" (click)="closeCreateHomeServer()"
+      class="btn btn-danger"><i class="fa fa-trash"
+        aria-hidden="true"></i>Hủy</button>&nbsp;
+    <button type="button" (click)="submitCreateHomeServer()"
+      class="btn btn-success"><i class="fa fa-check"></i>Lưu</button>
+  </ng-template>
+</p-dialog>

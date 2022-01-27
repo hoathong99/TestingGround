@@ -1,0 +1,55 @@
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+.building-grid{
+    display: flex !important;
+}
+    .building-grid > .img-bg{
+        display: flex;
+        justify-content: space-between;
+        background-image: url('../../../assets/img/building-background.jpg');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+    .building-grid .building-grid-item{
+        
+    }
+    
+    .building-grid .building-grid-item:hover{
+        cursor: pointer;
+        background-image: none;
+    }
+        .building-grid .building-grid-item .building-grid-item-top{
+            width: auto;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+        }
+            .building-grid .building-grid-item .building-grid-item-top .building-tool{
+                width: 150px;
+                display: flex;
+                justify-content: end;
+            }
+                .building-grid .building-grid-item .building-grid-item-top .building-tool .building-icon{
+                    border: none;
+                    background-color: inherit;
+                }
+                .building-grid .building-grid-item .building-grid-item-top .building-tool .building-icon:hover{
+                    transform: translateY(-5px);
+                }
+
+        .building-grid .building-grid-item .building-grid-item-content{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+            .building-grid .building-grid-item .building-grid-item-content .building-img{
+                cursor: pointer;
+                width: 100px;
+                height: 100%;
+                text-align: center;
+            }
+            
+
+        .building-grid .building-grid-item .building-grid-item-bottom{
+            text-align: center;
+        }

@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <VersionPrefix>1.0.0.0</VersionPrefix>
+    <TargetFramework>net5.0</TargetFramework>
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+    <AssemblyName>MHPQ.Core</AssemblyName>
+    <PackageId>MHPQ.Core</PackageId>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <UserSecretsId>AbpCompanyName-MHPQ-56C2EF2F-ABD6-4EFC-AAF2-2E81C34E8FB1</UserSecretsId>
+    <RootNamespace>MHPQ</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Localization\SourceFiles\*.xml" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Abp.AutoMapper" Version="6.3.0" />
+    <PackageReference Include="Abp.ZeroCore.EntityFrameworkCore" Version="6.3.0" />
+    <PackageReference Include="Castle.Windsor.MsDependencyInjection" Version="3.3.1" />
+    <PackageReference Include="log4net" Version="2.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="5.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="5.0.4" />
+    <PackageReference Include="OfficeOpenXml.Core.ExcelPackage" Version="1.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Authorization\Emailing\" />
+    <Folder Include="Common\Enum\Quanlybenhvien\" />
+    <Folder Include="Common\Enum\Quanlykhachsan\" />
+    <Folder Include="Common\Enum\Quanlytoanha\" />
+    <Folder Include="Common\Enum\Quanlytruonghoc\" />
+    <Folder Include="MHPQ.EntityDb\MHPQ.QuanLyToaNha\" />
+    <Folder Include="MHPQ.EntityDb\MHPQ.QuanLyBenhVien\" />
+    <Folder Include="MHPQ.EntityDb\MHPQ.QuanLyTruongHoc\" />
+    <Folder Include="MHPQ.EntityDb\MHPQ.Schneider\" />
+    <Folder Include="MHPQ.EntityDb\MHPQ.ThirdParty\" />
+  </ItemGroup>
+</Project>

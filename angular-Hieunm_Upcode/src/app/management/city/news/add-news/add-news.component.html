@@ -1,0 +1,56 @@
+<section class="content-header">
+    <p-toast></p-toast>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6">
+          <h1>{{ "Quản lý tin tức"}}</h1>
+        </div>
+        <div class="col-6 text-right">
+            <a href="javascript:;"
+              [routerLink]="['../news']"
+              class="btn bg-red">
+              {{"Trở về"}}
+            </a>
+            &nbsp;
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section class="content px-2">
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title w-100">
+            <h4 class="font-weight-bold">Đăng tin tức</h4>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <input type="text" pInputText 
+                  [(ngModel)]="news.title"
+                  placeholder="Tên tiêu đề"
+                  class="m-2" />
+                <p-dropdown 
+                    [options]="newsType" 
+                    [(ngModel)]="selectedNewsType" 
+                    optionLabel="name" 
+                    placeholder="Chọn loại tin tức"
+                    class="m-2">
+                </p-dropdown>
+                <button type="button" class="btn btn-primary m-2" (click)="uploadNews()">Đăng</button>
+            </div>
+          </div>
+          <div class="card-text">
+            <p-editor [(ngModel)]="news.content" [style]="{'height':'320px'}"></p-editor>
+            <!-- <p>Nội dung: {{textContent||''}}</p> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Nội dung tin tức đăng dưới dạng view -->
+    <ng-template #contents>
+      <div [innerHTML]="news.content"></div>
+    </ng-template>
+    <div *ngTemplateOutlet="contents">
+    </div> 
+  </section>
+  

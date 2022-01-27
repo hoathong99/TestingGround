@@ -1,0 +1,82 @@
+<div [@routerTransition]>
+  <p-toast></p-toast>
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6">
+          <h1>{{ "Xử lý sự cố"}}</h1>
+        </div>
+        <div class="col-6 text-right">
+          <a href="javascript:;" class="btn bg-red" [routerLink]="['../']">
+            <i class="fa fa-arrow-alt-circle-left"></i>
+            {{"Trở về"}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content px-2">
+    <div class="container-fluid">
+      <div class="card">
+        <p-toolbar styleClass="p-mb-4">
+          <ng-template pTemplate="left">
+            <button pButton pRipple label="New" icon="pi pi-plus"
+              class="p-button-success p-mr-2"></button>&nbsp;
+            <button pButton pRipple [label]="Delete" icon="pi pi-trash"
+              class="p-button-danger"></button>
+          </ng-template>
+
+          <ng-template pTemplate="right">
+            <p-fileUpload mode="basic" accept="image/*"
+              [maxFileSize]="1000000" label="Import" chooseLabel="Import"
+              class="p-mr-2 p-d-inline-block"></p-fileUpload>&nbsp;
+            <button pButton pRipple label="Export" icon="pi pi-upload"
+              class="p-button-help"></button>
+          </ng-template>
+        </p-toolbar>
+        <br>
+        <ng-container>
+          <p-table #dt>
+            <ng-template pTemplate="caption">
+              <div class="p-d-flex p-ai-center p-jc-between">
+                <div class="row">
+                  <div class="col-sm-8"> <h5 class="p-m-0">Danh sách sự cố phản
+                      ánh</h5></div>
+                  <div class="col-sm-4">
+                    <span class="p-input-icon-right">
+                      <i class="pi pi-search"></i>
+                      <input pInputText type="text"
+                        (input)="dt.filterGlobal($event.target.value,
+                        'contains')"
+                        placeholder="Search..." />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="width: 3rem">
+                  <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="name">Tên sự cố <p-sortIcon
+                    field="name"></p-sortIcon></th>
+                <th pSortableColumn="userName">Loại sự cố<p-sortIcon
+                    field="userName"></p-sortIcon></th>
+                <th pSortableColumn="address">Mô tả<p-sortIcon
+                    field="address"></p-sortIcon></th>
+                <th>Người xử lý</th>
+
+                <th>Thời gian hoàn thành </th>
+                <th>Trạng thái</th>
+                <th style="width: 8rem;">Thao tác</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body">
+            </ng-template>
+          </p-table>
+        </ng-container>
+      </div>
+    </div>
+  </section>
+</div>

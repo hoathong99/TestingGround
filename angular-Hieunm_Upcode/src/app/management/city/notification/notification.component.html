@@ -1,0 +1,75 @@
+<div [@routerTransition]>
+  <p-toast></p-toast>
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6">
+          <h1>{{ "Quản lý thông báo"}}</h1>
+        </div>
+        <div class="col-6 text-right">
+          <a href="javascript:;" class="btn bg-red"
+            [routerLink]="['../']">
+            <i class="fa fa-arrow-alt-circle-left"></i>
+            {{"Trở về"}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content px-2">
+    <div class="container-fluid">
+      <div class="card">
+        <p-toolbar styleClass="p-mb-4">
+          <ng-template pTemplate="left">
+            <button pButton pRipple label="New" icon="pi pi-plus"
+              class="p-button-success p-mr-2"></button>&nbsp;
+            <button pButton pRipple [label]="Delete" icon="pi pi-trash"
+              class="p-button-danger"></button>
+          </ng-template>
+
+          <ng-template pTemplate="right">
+            <p-fileUpload mode="basic" accept="image/*"
+              [maxFileSize]="1000000" label="Import"
+              chooseLabel="Import"
+              class="p-mr-2 p-d-inline-block"></p-fileUpload>&nbsp;
+            <button pButton pRipple label="Export" icon="pi pi-upload"
+              class="p-button-help"></button>
+          </ng-template>
+        </p-toolbar>
+        <br>
+        <ng-container>
+          <p-dataView #dv [value]="notifiedList"
+            [paginator]="true"
+            [rows]="9"
+            filterBy="name"
+            layout="list">
+
+            <ng-template let-notified pTemplate="listItem">
+              <div class="p-col-2"></div>
+              <div class="p-col-8">
+                <div class="product-list-item">
+                  <div class="product-list-detail">
+                    <div class="product-name">{{notified.name}}</div>
+                    <div
+                      class="product-description">{{notified.message}}</div>
+                    <i class="pi pi-envelope
+                      product-category-icon"></i>&nbsp;
+                    <span
+                      class="product-category">Người
+                      gửi:&nbsp;
+                      {{notified.nameCreator}}</span>
+                  </div>
+                  <div class="product-list-action">
+                    <p-button icon="pi pi-trash"
+                      styleClass="p-button-warning"
+                      (click)="deleteNotifiedUser(notified)"></p-button>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </p-dataView>
+        </ng-container>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,70 @@
+
+<div [@routerTransition]>
+    <p-toast></p-toast>
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-6">
+            <h1>{{ "Quản lý phòng khách sạn"}}</h1>
+          </div>
+          <div class="col-6 text-right">
+            <a href="javascript:;"
+              [routerLink]="['../../mainmanage', hotelId]"
+              class="btn bg-red">
+              <i class="fa fa-arrow-alt-circle-left"></i>
+              {{"Trở về"}}
+            </a>
+            &nbsp;
+            <a href="javascript:;" class="btn bg-blue"
+              [routerLink]="['../../mainmanage', hotelId]">
+              <i class="fa fa-save"></i>
+              {{"Lưu"}}
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="content px-2">
+      <div class="container-fluid">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"><strong>Thông tin phòng</strong></h3>
+              </div>
+              <br>
+              <div class="card-body">
+                <ng-container>
+                    <div class="col-12 col-sm-6 col-md-3"
+                        *ngFor="let room of rooms | async; let i=index" >
+                        <div class="info-box mb-3">
+                            <span style="cursor:pointer"
+                                class="info-box-icon
+                                bg-primary elevation-1"
+                                (click)="openEditRoom()">
+                                <i class="fa fa-home"></i>
+                            </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">
+                                    Loại phòng: {{room.type}}
+                                </span>
+                                <span class="info-box-text">
+                                    Tầng: {{room.floor}}
+                                </span>
+                                <span class="info-box-text">
+                                    Diện tích phòng: {{room.area}} m2
+                                </span>
+                                <span class="info-box-text">
+                                    Giá phòng: {{room.price}} vnd
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                <hr style="text-align:left;margin-left:0">
+                </ng-container>
+              </div>
+            </div>
+          </div>
+      </div>
+    </section>
+</div>

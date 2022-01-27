@@ -1,0 +1,89 @@
+
+<div [@routerTransition]>
+    <p-toast></p-toast>
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-6">
+            <h1>{{ "Quản lý tin tức"}}</h1>
+          </div>
+          <div class="col-6 text-right">
+            <a href="javascript:;"
+                [routerLink]="['../news']"
+              class="btn bg-red">
+              <i class="fa fa-arrow-alt-circle-left"></i>
+              {{"Trở về"}}
+            </a>
+            &nbsp;
+            <a href="javascript:;" class="btn bg-blue"
+                [routerLink]="['../news']" >
+              <i class="fa fa-save"></i>
+              {{"Lưu"}}
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <!-- code here  -->
+    <ng-container>
+      <p-table #dt [value]="news" [rows]="10"
+        [paginator]="true"
+        [globalFilterFields]="['hotelName','id']"
+        [(selection)]="selectedNews" [rowHover]="true"
+        dataKey="id" selectionMode="single"
+        currentPageReportTemplate="Showing {first} to {last} of
+        {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+          <div class="p-d-flex p-ai-center p-jc-between">
+            <div class="row">
+              <div class="col-sm-8"> <h5 class="p-m-0">Danh sách tin tức đã đăng</h5></div>
+              <div class="col-sm-4">
+                <span class="p-input-icon-right">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text"
+                    (input)="dt.filterGlobal($event.target.value,'contains')"
+                    placeholder="Search..." />
+                </span>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="id">Id</th>
+            <th >Tên tiêu đề </th>
+            <th> Thời gian đăng </th>
+            <th style="width: 10rem;">Người đăng</th>
+            <th style="width: 10rem;">Loại tin</th>
+            <th style="width: 10rem;">Công cụ</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-new>
+          <tr>
+            <td>
+              <p-tableCheckbox [value]="news"></p-tableCheckbox>
+            </td>
+            <td>{{new.id}}</td>
+            <td>{{new.title}}</td>
+            <td>{{new.datePost}}</td>
+            <td>{{new.poster}}</td>
+            <td>{{new.newsTypeId | newsType}}</td>
+            <td>
+                <button pButton pRipple icon="pi pi-pencil"
+                    (click)="editNews(new)"
+                    class="p-button-rounded p-button-warning p-mr-2">
+                </button>&nbsp;
+                <button pButton pRipple icon="pi pi-trash"
+                    class="p-button-rounded p-button-danger"
+                    (click)="deleteNews(new.id)">
+                </button></td>
+          </tr>
+        </ng-template>
+      </p-table>
+  
+    </ng-container>
+  </div>

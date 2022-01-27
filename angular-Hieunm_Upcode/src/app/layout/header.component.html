@@ -1,0 +1,106 @@
+<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <header-left-navbar></header-left-navbar>
+  <ul class="navbar-nav ml-auto">
+
+    <header-language-menu></header-language-menu>
+    &nbsp;
+    <li class="nav-item dropdown nav-user-menu" dropdown>
+      <button type="button" class="icon-button"
+        dropdownToggle>
+        <span class="fa fa-bell" style="font-size: 20px;"></span>
+        <span class="icon-button__badge">5</span>
+      </button>
+      <div class="dropdown-menu dropdown-menu-right" *dropdownMenu style="width:
+        260px !important;">
+        <div>
+          <li class="dropdown-item">
+            <a [routerLink]="['update-password']">
+              <i class="pi pi-shopping-cart"></i>
+              <div class="notification-item">
+                <div class="notification-summary">Thông báo mới</div>
+                <div class="notification-detail">Bạn có <strong>5</strong> thông
+                  báo mới</div>
+              </div>
+            </a>
+          </li>
+          <li class="dropdown-item">
+            <a>
+              <i class="pi pi-check-square"></i>
+              <div class="notification-item">
+                <div class="notification-summary">Tin tức mới</div>
+                <div class="notification-detail">Đã thêm<strong>3</strong>
+                  tin tức mới</div>
+              </div>
+            </a>
+          </li>
+          <li class="dropdown-item">
+            <a tabindex="0">
+              <i class="pi pi-chart-line"></i>
+              <div class="notification-item">
+                <div class="notification-summary">Nhà thông minh</div>
+                <div class="notification-detail">Thêm mới <strong>10+</strong>
+                  smarthomes</div>
+              </div>
+            </a>
+          </li>
+          <li class="dropdown-item">
+            <a tabindex="0">
+              <i class="pi pi-comments"></i>
+              <div class="notification-item">
+                <div class="notification-summary">Tin nhắn mới</div>
+                <div class="notification-detail">Bạn có<strong>2</strong>
+                  tin nhắn mới</div>
+              </div>
+            </a>
+          </li>
+          <li class="dropdown-item">
+            <a tabindex="0">
+              <i class="pi pi-exclamation-circle"></i>
+              <div class="notification-item">
+                <div class="notification-summary">Chargeback Request</div>
+                <div class="notification-detail"><strong>1</strong> to review.</div>
+              </div>
+            </a>
+          </li>
+        </div>
+
+      </div>
+    </li>
+
+    <header-user-menu></header-user-menu>
+  </ul>
+</nav>
+
+<style>
+  a {
+    color: #495057 !important;
+    padding: 0.5rem;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    cursor: pointer;
+    /* color: #007bff !important; */
+    text-decoration: none;
+    background-color: transparent
+  }
+  
+  .pi {
+    margin-right: 10px;
+  }
+
+  .notification-item {
+    font-weight: 600;
+  }
+  .notification-detail {
+    font-weight: 300;
+  }
+
+
+  .dropdown-item:active ,.notification-item:active,.notification-detail:active, i:active {
+    color: white;
+  }
+
+</style>

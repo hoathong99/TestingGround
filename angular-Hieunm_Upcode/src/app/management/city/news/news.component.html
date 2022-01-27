@@ -1,0 +1,67 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-6">
+        <h1>{{ "Quản lý tin tức"}}</h1>
+      </div>
+      <div class="col-6 text-right">
+          <a href="javascript:;"
+            [routerLink]="['../']"
+            class="btn bg-red">
+            {{"Trở về"}}
+          </a>
+          &nbsp;
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="container-fluid">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">
+
+          </div>
+          <div class="card-text">
+            <div class="row">
+                
+                <div class="col-lg-3 col-6">
+                  <div class="small-box bg-success">
+                    <div class="inner">
+                      <h3></h3>
+                      <p>Đăng tin tức</p>
+                    </div>
+                    <div class="icon">
+                      <i class="pi pi-book md-img-icon"></i>
+                    </div>
+                      <a
+                      [routerLink]="['../add-news']"
+                      class="small-box-footer">
+                        Quản lý
+                        <i class="fas fa-arrow-circle-right"></i>
+                      </a>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                  <div class="small-box bg-red">
+                    <div class="inner">
+                      <h3></h3>
+                      <p>Sửa hoặc xóa tin</p>
+                    </div>
+                    <div class="icon">
+                      <i class="pi pi-book md-img-icon" ></i>
+                    </div>
+                    <a
+                    [routerLink]="['../update-delete-news']"
+                    class="small-box-footer">
+                      Quản lý
+                      <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</section>

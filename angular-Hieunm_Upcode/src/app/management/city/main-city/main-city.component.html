@@ -1,0 +1,220 @@
+<div [@routerTransition]>
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6">
+          <h1>{{ "Quản lý đô thị"}}</h1>
+        </div>
+        <div class="col-6 text-right">
+          <!-- <a href="javascript:;" class="btn bg-red">
+            <i class="fa fa-close">Close</i>
+
+          </a> -->
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content px-2">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-info">
+            <div class="inner">
+              <h3>Thông báo</h3>
+              <p>12 thông báo mới</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-bell" pBadge
+                [value]="'10+'"
+                severity="danger"></i>
+            </div>
+            <a [routerLink]="['notification']"
+              class="small-box-footer">
+              More info
+              <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-6">
+          <div class="small-box purple-bgcolor">
+            <div class="inner">
+              <h3>140+</h3>
+              <p>Contributors</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <a
+              href="https://github.com/aspnetboilerplate/aspnetboilerplate/graphs/contributors"
+              class="small-box-footer"
+              target="_blank">
+              More info
+              <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-warning">
+            <div class="inner">
+              <h3>1.6k+</h3>
+              <p>Used / Dependents</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-tools"></i>
+            </div>
+            <a
+              href="https://github.com/aspnetboilerplate/aspnetboilerplate/network/dependents"
+              class="small-box-footer">
+              More info
+              <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-primary">
+            <div class="inner">
+              <h3>3.1k+</h3>
+              <p>Forks</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-code"></i>
+            </div>
+            <a
+              href="https://github.com/aspnetboilerplate/aspnetboilerplate/network/members"
+              class="small-box-footer"
+              target="_blank">
+              More info
+              <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="p-col-12 p-lg-4">
+          <div class="card height-100 p-d-flex
+            p-flex-column">
+            <div class="p-d-flex p-jc-center p-p-3 rounded-normal
+              content-alt-bgcolor">
+              <img
+                src="https://www.primefaces.org/ultima-ng/assets/layout/images/widgets/feature-faq.svg"
+                alt="feature-faq">
+            </div>
+            <div class="p-d-flex p-flex-column p-ai-center p-mt-3">
+              <h5 class="p-mb-2"><strong>Xử lý sự cố</strong></h5>
+              <p class="muted-text">We answer all your burning
+                questions about
+                Ultima, and some probably never even thought to
+                ask.</p>
+            </div>
+            <div class="p-d-flex p-jc-between p-ai-center p-pt-3
+              p-mt-auto">
+              <small class="muted-text">46 Sự cố mới</small>
+              <p-button label="Quản lý"
+                [routerLink]="['problem']">
+
+              </p-button>
+            </div>
+          </div>
+        </div>
+        <div class="p-col-12 p-lg-4">
+          <div class="card height-100 p-d-flex
+            p-flex-column">
+            <div class="p-d-flex p-jc-center p-p-3 rounded-normal
+              content-alt-bgcolor">
+              <img
+                src="https://www.primefaces.org/ultima-ng/assets/layout/images/widgets/feature-onboarding.svg"
+                alt="feature-faq">
+            </div>
+            <div class="p-d-flex p-flex-column p-ai-center p-mt-3">
+              <h5 class="p-mb-2"><strong>Tin tức</strong></h5>
+              <p class="muted-text">We answer all your burning
+                questions about
+                Ultima, and some probably never even thought to
+                ask.</p>
+            </div>
+            <div class="p-d-flex p-jc-between p-ai-center p-pt-3
+              p-mt-auto">
+              <small class="muted-text"></small>
+              <p-button label="Quản lý" [routerLink]="['news']">>
+
+              </p-button>
+            </div>
+          </div>
+        </div>
+        <div class="p-col-12 p-lg-4">
+          <div class="card height-100 p-d-flex
+            p-flex-column">
+            <div class="p-d-flex p-jc-center p-p-3 rounded-normal
+              content-alt-bgcolor">
+              <img
+                src="https://www.primefaces.org/ultima-ng/assets/layout/images/widgets/feature-security.svg"
+                alt="feature-faq">
+            </div>
+            <div class="p-d-flex p-flex-column p-ai-center p-mt-3">
+              <h5 class="p-mb-2"><strong>Vận hành</strong></h5>
+              <p class="muted-text">We answer all your burning
+                questions about
+                Ultima, and some probably never even thought to
+                ask.</p>
+            </div>
+            <div class="p-d-flex p-jc-between p-ai-center p-pt-3
+              p-mt-auto">
+              <small class="muted-text">46 Questions</small>
+              <p-button label="Quản lý" [routerLink]="['operate']">>
+              </p-button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="p-col-12 p-lg-3"></div>
+        <div class="p-col-12 p-lg-8">
+          <div class="card height-100 p-d-flex
+            p-flex-column">
+            <div class="p-d-flex p-jc-center p-p-3 rounded-normal
+              content-alt-bgcolor">
+              <img
+                src="https://htlandholding.vn/wp-content/uploads/2021/08/meyhomes-capital-phu-quoc-chu-dau-tu-gia-ban-va-tien-do-3-768x432.png"
+                alt="feature-faq">
+            </div>
+            <div class="p-d-flex p-flex-column p-ai-center p-mt-3">
+              <h5 class="p-mb-2"><strong>Dịch vụ cộng đồng</strong></h5>
+              <p class="muted-text">We answer all your burning
+                questions about
+                Ultima, and some probably never even thought to
+                ask.</p>
+            </div>
+            <div class="p-d-flex p-jc-between p-ai-center p-pt-3
+              p-mt-auto">
+              <small class="muted-text"></small>
+              <p-button label="Quản lý"
+                [routerLink]="['service']">
+
+              </p-button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin-left: 20px;">
+        <div class="p-col-12">
+          <div class="card">
+            <h5>Vertical</h5>
+            <p-chart type="bar" [data]="basicData"
+              [options]="basicOptions"></p-chart>
+          </div>
+        </div>
+
+      </div>
+      <!-- https://www.primefaces.org/ultima-ng/assets/layout/images/widgets/feature-onboarding.svg -->
+      <!-- https://www.primefaces.org/ultima-ng/assets/layout/images/widgets/feature-security.svg -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <p-gmap [options]="options"
+              [style]="{'width':'100%','height':'320px'}"></p-gmap>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

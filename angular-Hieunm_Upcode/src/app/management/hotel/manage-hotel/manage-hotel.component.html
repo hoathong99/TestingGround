@@ -1,0 +1,259 @@
+<div [@routerTransition]>
+  <p-toast></p-toast>
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6">
+          <h1>{{ "Quản lý khách sạn"}}</h1>
+        </div>
+        <div class="col-6 text-right">
+            
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content px-2">
+    <div class="container-fluid">
+        <div class="card">
+          <div class="card-body">
+            <p-toolbar styleClass="p-mb-4">
+              <ng-template pTemplate="left">
+                <button pButton pRipple label="New" icon="pi pi-plus"
+                  (click)="addHotel()"
+                  class="p-button-success p-mr-2"></button>&nbsp;
+                <button pButton pRipple [label]="Delete" icon="pi pi-trash"
+                  class="p-button-danger"></button>&nbsp;
+                <button pButton pRipple [label]="Refresh" icon="pi pi-refresh"
+                  (click)="refresh()"
+                  class="p-button-primary"></button>&nbsp;
+              </ng-template>
+  
+              <ng-template pTemplate="right">
+                <p-fileUpload mode="basic" accept="image/*"
+                  [maxFileSize]="1000000" label="Import" chooseLabel="Import"
+                  class="p-mr-2 p-d-inline-block"></p-fileUpload>&nbsp;
+                <button pButton pRipple label="Export" icon="pi pi-upload"
+                  class="p-button-help"></button>
+              </ng-template>
+            </p-toolbar>
+            <br>
+            
+              <p-dataView #dv 
+                [value]="hotels" 
+                [paginator]="true" 
+                [rows]="9" filterBy="name"
+                [sortField]="sortField" 
+                [sortOrder]="sortOrder" 
+                layout="grid"
+                [loading]="loading">
+                  <ng-template pTemplate="header">
+                      <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+                          <p-dropdown [options]="sortOptions" 
+                                      [(ngModel)]="sortKey" 
+                                      placeholder="Sort By Price" 
+                                      (onChange)="onSortChange($event)" 
+                                      styleClass="p-mb-2 p-mb-md-0">
+                          </p-dropdown>&nbsp;
+                          <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+                              <i class="pi pi-search"></i>
+                              <input type="search" 
+                                      pInputText 
+                                      placeholder="Search by Name" 
+                                      (input)="dv.filter($event.target.value)">
+                          </span>
+                          <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                      </div>
+                  </ng-template>
+                  <ng-template let-hotel pTemplate="listItem">
+                      <div class="p-col-12">
+                          <div class="hotel-list-item">
+                              <img [src]="'../../../assets/img/hotel-img.jpg'" [alt]="hotel.name"/>
+                              <div class="hotel-list-content">
+                                <div class="hotel-list-title">
+                                  <div class="hotel-title">{{hotel.hotelName}}</div>
+                                </div>
+                                <div class="hotel-list-inner-content">
+                                  <div class="hotel-list-detail">
+                                    <div class="hotel-description">{{hotel.address}}</div>
+                                    <span class="hotel-price">5.000.000 vnd</span>&nbsp;
+                                    <span [class]="'hotel-badge status-active'">Đang hoạt động</span>
+                                    <p-rating  [readonly]="true" [cancel]="false"></p-rating>
+                                    <i class="pi pi-tag hotel-category-icon">
+
+                                    </i>
+                                    <span class="hotel-category">Villa</span>
+                                  </div>
+                                  <div class="hotel-list-detail">
+                                      <div class="hotel-title">Dịch vụ</div>
+                                      <div class="hotel-description">
+                                        <ul>
+                                          <li>Wifi miễn phí</li>
+                                          <li>Bể bơi</li>
+                                          <li>Bãi biển</li>
+                                          <li>Đỗ xe miễn phí</li>
+                                        </ul>
+                                      </div>
+                                  </div>
+                                  <div class="hotel-list-action">                                    
+                                      <button pButton pRipple icon="pi pi-cog"
+                                        [routerLink]="['../mainmanage', hotel.id]"
+                                        class="p-button-rounded p-button-warning p-mr-2">
+                                      </button>&nbsp;
+                                      <!-- <button pButton pRipple icon="pi pi-book"
+                                        [routerLink]="['../bookinghotel', hotel.id]"
+                                        class="p-button-rounded p-button-warning p-mr-2">
+                                      </button>&nbsp;
+                                      <button pButton pRipple icon="pi pi-cog"
+                                        [routerLink]="['../roomhotel', hotel.id]"
+                                        class="p-button-rounded p-button-warning p-mr-2">
+                                      </button>&nbsp; -->
+                                      <button pButton pRipple icon="pi pi-pencil"
+                                        (click)="editHotel(hotel)"
+                                        class="p-button-rounded p-button-warning p-mr-2">
+                                      </button>&nbsp;
+                                      <button pButton pRipple icon="pi pi-trash"
+                                        class="p-button-rounded p-button-danger"
+                                        (click)="deleteHotel(hotel.id)">
+                                      </button>
+                                      <!-- <p-button icon="pi pi-shopping-cart" label="Add to Cart" ></p-button> -->
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+                      </div>
+                  </ng-template>
+                  <ng-template let-hotel pTemplate="gridItem" >
+                      <div class="p-col-12 p-md-4">
+                          <div class="hotel-grid-item card">
+                              <div class="hotel-grid-item-top">
+                                  <div>
+                                      <i class="pi pi-tag hotel-category-icon"></i>
+                                      <span class="hotel-category"></span>
+                                  </div>
+                                  <span [class]="'hotel-badge status-'"></span>
+                              </div>
+                              <div class="hotel-grid-item-content">
+                                  <img [src]="'../../../assets/img/hotel-img.jpg'" [alt]=""/>
+                                  <div class="hotel-name">{{hotel.hotelName}}</div>
+                                  <div class="hotel-description">{{hotel.address}}</div>
+                                  <p-rating [readonly]="true" [cancel]="false"></p-rating>
+                              </div>
+                              <div class="hotel-grid-item-bottom">
+                                  <span class="hotel-price"></span>
+                                  <!-- <button pButton pRipple icon="pi pi-book"
+                                    [routerLink]="['../bookinghotel', hotel.id]"
+                                    class="p-button-rounded p-button-warning p-mr-2">
+                                  </button>&nbsp;
+                                  <button pButton pRipple icon="pi pi-cog"
+                                    [routerLink]="['../roomhotel', hotel.id]"
+                                    class="p-button-rounded p-button-warning p-mr-2">
+                                  </button>&nbsp; -->
+                                  <button pButton pRipple icon="pi pi-pencil"
+                                    (click)="editHotel(hotel)"
+                                    class="p-button-rounded p-button-warning p-mr-2">
+                                  </button>&nbsp;
+                                  <button pButton pRipple icon="pi pi-trash"
+                                    class="p-button-rounded p-button-danger"
+                                    (click)="deleteHotel(hotel.id)">
+                                  </button>
+                                  <!-- <p-button icon="pi pi-shopping-cart" ></p-button> -->
+                              </div>
+                          </div>
+                      </div>
+                  </ng-template>
+                </p-dataView>
+
+          </div>    
+        </div>
+      </div>
+  </section>
+
+<p-dialog [(visible)]="stateNewHotel" [style]="{width: '600px'}"
+  header="Thêm mới khách sạn" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="name">Tên khách sạn</label>
+      <input type="text" pInputText id="name"
+        [(ngModel)]="createHotel.hotelName"
+        required autofocus />
+      <small class="p-invalid" 
+        *ngIf="submitted 
+        && !createHotel.hotelName">
+        Tên khách sạn không được để trống
+      </small>
+    </div>
+
+    <div class="p-field">
+      <label for="address">Địa chỉ khách sạn</label>
+      <input type="text" pInputText id="address"
+        [(ngModel)]="createHotel.address"
+        required autofocus />
+      <small class="p-invalid" 
+        *ngIf="submitted 
+        && !createHotel.address">
+        Địa chỉ khách sạn không được để trống
+      </small>
+    </div>
+
+    <!-- <div class="p-field">
+      <label for="note">Ghi chú</label>
+      <textarea id="note" pInputTextarea
+        rows="3" [(ngModel)]="createHotel.note"
+        cols="20"></textarea>
+    </div> -->
+  </ng-template>
+  <ng-template pTemplate="footer">
+
+    <button type="button" (click)="closeHotel()"
+      class="btn btn-danger"><i class="fa fa-trash"
+        aria-hidden="true"></i>Hủy</button>&nbsp;
+    <button type="button" (click)="submitHotel()"
+      class="btn btn-success"><i class="fa fa-check"></i>Lưu</button>
+  </ng-template>
+</p-dialog>
+
+
+<p-dialog [(visible)]="stateEditHotel" [style]="{width: '600px'}"
+  header="Sửa khách sạn" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+
+    <div class="p-field">
+      <label for="name">Tên khách sạn</label>
+      <input type="text" pInputText id="name"
+        [(ngModel)]="createHotel.hotelName"
+        required autofocus />
+      <small class="p-invalid" 
+        *ngIf="submitted 
+        && !createHotel.hotelName">
+        Tên khách sạn không được để trống
+      </small>
+    </div>
+
+    <div class="p-field">
+      <label for="address">Địa chỉ khách sạn</label>
+      <input type="text" pInputText id="address"
+        [(ngModel)]="createHotel.address"
+        required autofocus />
+      <small class="p-invalid" 
+        *ngIf="submitted 
+        && !createHotel.address">
+        Địa chỉ khách sạn không được để trống
+      </small>
+    </div>
+
+    <!-- <div class="p-field">
+      <label for="note">Ghi chú</label>
+      <textarea id="note" pInputTextarea
+        rows="3" [(ngModel)]="createHotel.note"
+        cols="20"></textarea>
+    </div> -->
+  </ng-template>
+  <ng-template pTemplate="footer">
+
+    <button type="button" (click)="closeHotel()"
+      class="btn btn-danger"><i class="fa fa-trash"
+        aria-hidden="true"></i>Hủy</button>&nbsp;
+    <button type="button" (click)="submitHotel()"
+      class="btn btn-success"><i class="fa fa-check"></i>Lưu</button>
+  </ng-template>
+</p-dialog>

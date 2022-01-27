@@ -1,0 +1,85 @@
+
+<div [@routerTransition]>
+  <p-toast></p-toast>
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6">
+          <h1>{{ "Quản lý lượt thuê"}}</h1>
+        </div>
+        <div class="col-6 text-right">
+          <a href="javascript:;"
+            [routerLink]="['../../mainmanage', hotelId]"
+            class="btn bg-red">
+            <i class="fa fa-arrow-alt-circle-left"></i>
+            {{"Trở về"}}
+          </a>
+          &nbsp;
+          <a href="javascript:;" class="btn bg-blue"
+            [routerLink]="['../../mainmanage', hotelId]">
+            <i class="fa fa-save"></i>
+            {{"Lưu"}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- code here  -->
+  <ng-container>
+    <p-table #dt [value]="bookings" [rows]="10"
+      [paginator]="true"
+      [globalFilterFields]="['hotelName','id']"
+      [(selection)]="selectedBooking" [rowHover]="true"
+      dataKey="id" selectionMode="single"
+      currentPageReportTemplate="Showing {first} to {last} of
+      {totalRecords} entries" [showCurrentPageReport]="true">
+      <ng-template pTemplate="caption">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          <div class="row">
+            <div class="col-sm-8"> <h5 class="p-m-0">Danh sách lượt thuê</h5></div>
+            <div class="col-sm-4">
+              <span class="p-input-icon-right">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text"
+                  (input)="dt.filterGlobal($event.target.value,'contains')"
+                  placeholder="Search..." />
+              </span>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 3rem">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+          <th pSortableColumn="idRoom">Id phòng <p-sortIcon
+              field="name"></p-sortIcon></th>
+          <th pSortableColumn="idGuest">Id khách thuê <p-sortIcon
+              field="address"></p-sortIcon></th>
+          <th> Số người </th>
+          <th style="width: 10rem;">Giá phòng</th>
+          <th style="width: 10rem;">Đã thanh toán</th>
+          <th style="width: 10rem;">Ngày bắt đầu</th>
+          <th style="width: 10rem;">Ngày kết thúc</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-booking>
+        <tr>
+          <td>
+            <p-tableCheckbox [value]="bookings"></p-tableCheckbox>
+          </td>
+          <td>{{booking.roomId}}</td>
+          <td>{{booking.guestId}}</td>
+          <td>{{booking.numberPeople}}</td>
+          <td>{{booking.money}}</td>
+          <td>{{booking.isPaid}}</td>
+          <td>{{booking.startDate}}</td>
+          <td>{{booking.endDate}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+  </ng-container>
+</div>

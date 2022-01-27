@@ -1,0 +1,22 @@
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+.inner-content{
+    height: 70px;
+    display: flex;
+    justify-content: center;
+}
+    
+.inner-footer{
+    text-align: center;
+}
+
+.md-img-icon{
+    font-size: 70px !important;
+}
+.no-box{
+    box-shadow: none;
+}
+
+.inner-footer > a{
+    color: #000;
+}

@@ -1,0 +1,293 @@
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6">
+          <h1>{{ "Quản lý khách sạn"}}</h1>
+        </div>
+        <div class="col-6 text-right">
+            <a href="javascript:;"
+              [routerLink]="['../../']"
+              class="btn bg-red">
+              {{"Trở về"}}
+            </a>
+            &nbsp;
+        </div>
+      </div>
+    </div>
+</section>
+
+<!-- thống kê, nhắc việc -->
+<section class="content px-2">
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-body">
+            <div class="card-title">
+                <h4 class="font-weight-bold">Thống kê, nhắc việc</h4>
+            </div>
+            <div class="card-text">
+                <div class="row">
+                    <div class="col-lg-3 col-6">
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                        <h3>820+</h3>
+                        <p>Hợp đồng sắp hết hạn</p>
+                        </div>
+                        <div class="icon">
+                        <i class="pi pi-book md-img-icon"></i>
+                        </div>
+                        <a
+                        [routerLink]="['./']"
+                        class="small-box-footer">
+                        Quản lý
+                        <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                    <div class="small-box bg-primary">
+                        <div class="inner">
+                        <h3>52k+</h3>
+                        <p>Dịch vụ cần phát sinh</p>
+                        </div>
+                        <div class="icon">
+                        <i class="pi pi-id-card md-img-icon" ></i>
+                        </div>
+                        <a
+                        [routerLink]="['./']"
+                        class="small-box-footer">
+                        Quản lý
+                        <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                    <div class="small-box bg-red">
+                        <div class="inner">
+                        <h3>1.6k+</h3>
+                        <p>Hợp đồng cần in</p>
+                        </div>
+                        <div class="icon">
+                        <i class="bi bi-clipboard-check md-img-icon"></i>
+                        </div>
+                        <a
+                        [routerLink]="['./']"
+                        class="small-box-footer">
+                        Quản lý
+                        <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                        <div class="small-box bg-warning">
+                            <div class="inner">
+                            <h3>1.6k+</h3>
+                            <p>Hóa đơn cần thu tiền</p>
+                            </div>
+                            <div class="icon">
+                            <i class="pi pi-dollar md-img-icon" ></i>
+                            </div>
+                            <a
+                            [routerLink]="['./']"
+                            class="small-box-footer">
+                            Quản lý
+                            <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- thống kê trạng thái phòng, căn hộ -->
+  <section class="content px-2">
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-body">
+            <div class="card-title">
+                <h4 class="font-weight-bold">Thống kê trạng thái phòng</h4>
+                
+            </div>
+            <div class="card-text">
+                <div class="row">
+                    <div class="col-lg-3 col-6">
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                        <h3>820+</h3>
+                        <p>Tổng số phòng khách sạn</p>
+                        </div>
+                        <div class="icon">
+                            <i class="bi bi-building md-img-icon" ></i>
+                        </div>
+                        <a
+                        [routerLink]="['./']"
+                        class="small-box-footer">
+                        Quản lý
+                        <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                    <div class="small-box bg-primary">
+                        <div class="inner">
+                        <h3>52k+</h3>
+                        <p>Đang có khách</p>
+                        </div>
+                        <div class="icon">
+                            <i class="bi bi-person-plus md-img-icon"></i>
+                        </div>
+                        <a
+                        [routerLink]="['./']"
+                        class="small-box-footer">
+                        Quản lý
+                        <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                    <div class="small-box bg-red">
+                        <div class="inner">
+                        <h3>1.6k+</h3>
+                        <p>Không có khách</p>
+                        </div>
+                        <div class="icon">
+                        <i class="bi bi-person-x md-img-icon"></i>
+                        </div>
+                        <a
+                        [routerLink]="['./']"
+                        class="small-box-footer">
+                        Quản lý
+                        <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                        <div class="small-box bg-warning">
+                            <div class="inner">
+                            <h3>1.6k+</h3>
+                            <p>Đang sửa chữa</p>
+                            </div>
+                            <div class="icon">
+                            <i class="fas fa-tools"></i>
+                            </div>
+                            <a
+                            [routerLink]="['./']"
+                            class="small-box-footer">
+                            Quản lý
+                            <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- Chức năng -->
+  <section class="content px-2">
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-body">
+            <div class="card-title font-weight-bold">
+                <h4 class="font-weight-bold">Các chức năng</h4>
+            </div>
+            <div class="card-text">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="small-box no-box">
+                            <div class="inner-head">
+                                <h3></h3>
+                                <p></p>
+                            </div>
+                            <div class="inner-content">
+                                <i class="bi bi-receipt fa-3x"></i>
+                            </div>
+                            <div class="inner-footer">
+                                <a>
+                                Quản lý chung
+                                <i class="fas fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="small-box no-box">
+                            <div class="inner-head">
+                            <h3></h3>
+                            <p></p>
+                            </div>
+                            <div class="inner-content">
+                                <div [routerLink]="['../../guesthotel', hotelId]">
+                                    <i class="bi bi-people-fill fa-3x"></i>
+                                </div>
+                            </div>
+                            <div class="inner-footer">
+                                <a
+                                [routerLink]="['../../guesthotel', hotelId]">
+                                Quản lý khách lẻ
+                                <i class="fas fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                    <div class="small-box no-box">
+                        <div class="inner-head">
+                        <h3></h3>
+                        <p></p>
+                        </div>
+                        <div class="inner-content">
+                            <i class="bi bi-shop-window fa-3x" [routerLink]="['../../roomhotel', hotelId]"></i>
+                        </div>
+                        <div class="inner-footer">
+                            <a
+                            [routerLink]="['../../roomhotel', hotelId]">
+                            Quản lý phòng
+                            <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-2">
+                    <div class="small-box no-box">
+                        <div class="inner-head">
+                        <h3></h3>
+                        <p></p>
+                        </div>
+                        <div class="inner-content">
+                            <i class="bi bi-graph-up fa-3x" [routerLink]="['../../bookinghotel', hotelId]"></i>
+                        </div>
+                        <div class="inner-footer">
+                            <a
+                            [routerLink]="['../../bookinghotel', hotelId]">
+                            Quản lý lượt thuê
+                            <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div> 
+                    </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="small-box no-box">
+                            <div class="inner-head">
+                            <h3></h3>
+                            <p></p>
+                            </div>
+                            <div class="inner-content">
+                                <i class="bi bi-hourglass fa-3x"></i>
+                            </div>
+                            <div class="inner-footer">
+                                <a>
+                                Quản lý lịch sử
+                                <i class="fas fa-arrow-circle-right"></i>
+                                </a>
+                            </div>                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>

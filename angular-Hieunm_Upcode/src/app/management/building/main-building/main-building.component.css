@@ -1,0 +1,10 @@
+.cl-building-grid-item{
+    background-color: #c3f6ff;
+    background-image: linear-gradient(to right, rgb(27, 152, 255) , rgb(172, 248, 85));
+    border: 1px solid #a7a7a7;
+    box-shadow: 5px 10px 10px #888888;
+    animation: mymove 5s infinite;
+}
+@keyframes mymove {
+    50% {box-shadow: 10px 20px 30px rgb(92, 92, 92);}
+}

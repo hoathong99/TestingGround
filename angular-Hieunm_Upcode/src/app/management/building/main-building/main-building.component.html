@@ -1,0 +1,54 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6 text-left">
+                <h1>Quản lý tòa nhà</h1>
+            </div>
+            <div class="col-6 text-right">
+                <button class="btn bg-primary">Thêm tòa mới</button>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="card">
+        <div class="building-grid">
+            <div class="row w-100 img-bg">
+                <div *ngFor="let building of buildings; index as i" 
+                    class="col-3 p-4 m-4 building-grid-item cl-building-grid-item"
+                    [routerLink]="['./manage-building']">
+                    <div class="building-grid-item-top">
+                        <div class="building-tool">
+                            <button type="button" class="building-icon" title="Chỉnh sửa">
+                                <i class="bi bi-archive-fill"></i>
+                            </button>
+                            <button type="button" class="building-icon" title="Báo động">
+                                <i class="bi bi-alarm-fill"></i>
+                            </button>
+                            <button type="button" class="building-icon" title="Tải xuống dữ liệu">
+                                <i class="bi bi-arrow-down-circle-fill"></i>
+                            </button>
+                            <button type="button" class="building-icon" title="Xem dạng 3D">
+                                <i class="bi bi-badge-3d-fill"></i>
+                            </button>
+                            <button type="button" class="building-icon" title="Xóa">
+                                <i class="bi bi-x-circle-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="building-grid-item-content">
+                        <div class="building-img" 
+                            [title]="'Tòa số ' + building.buildingNumber +', địa chỉ '+ building.address">
+                            <i class="bi bi-building fa-5x"></i>
+                        </div>                       
+                    </div>
+                    <div class="building-grid-item-bottom">
+                        {{building.name}}
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
